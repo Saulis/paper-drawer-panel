@@ -23,7 +23,19 @@ iron-selector > #drawer {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: white;
+ /*
+  * An issue was found when `will-change: transform` is used for #drawer
+  * It seems to be a stacking context issue that reduces paper-ripple's 
+  * opacities when the drawer is visible.
+  * The problem is solved when `style.opacity < 1` or when the background color
+  * has an alpha channel < 1
+  *
+  *
+  * Fixes:
+  * PolymerElements/paper-drawer-panel/issues/51 and
+  * Polymer/polymer-element-catalog/issues/66
+  */
+  background-color: rgba(255, 255, 255, 0.99);
   will-change: transform;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
